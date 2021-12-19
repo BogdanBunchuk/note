@@ -75,12 +75,55 @@ def delete_note():
     del (notes[note])
     notes_list.clear()
     notes_list.addItems(notes)
+    with open('notes.json', 'w') as file:
+        json.dump(notes, file)
+
 notes_list.itemClicked.connect(show_note)
 delete_note_btn.clicked.connect(delete_note)
 with open('notes.json', 'r', encoding='utf-8') as file:
     notes = json.load(file)
 
+def save_text():
+    note = notes_list.selectedItems()[0].text()
+    (notes[note]['text']) = note_text.toPlainText()
+    with open('notes.json', 'w') as file:
+        json.dump(notes, file)
+
+def attach_tag():
+    note = notes_list.selectedItems()[0].text()
+    notes[note]['tags'].append(tagLine.text())
+    tags_list.clear()
+    tags_list.addItems(notes[note]['tags'])
+    with open('notes.json', 'w') as file:
+        json.dump(notes, file)
+
+def unattach_tag():
+    note = notes_list.selectedItems()[0].text()
+    tag = tags_list.selectedItems()[0].text()
+    notes[note]['tags'].remove(tag)
+    tags_list.clear()
+    tags_list.addItems(notes[note]['tags'])
+    with open('notes.json', 'w') as file:
+        json.dump(notes, file)
+
+def search_by_tag():
+    # new_note_list = {}
+    notes_list.clear()
+    # countr = 0
+
+    for note in notes:
+        for tag in notes[note]['tags']: 
+            if tagLine.text() == tag:
+                notes_list.addItem(note)
+    # notes_list.addItems(new_note_list)
+    # with open('notes.json', 'w') as file:
+    #     json.dump(notes, file)
+
+save_note_btn.clicked.connect(save_text)
 create_note_btn.clicked.connect(add_note)
+attach_tag_btn.clicked.connect(attach_tag)
+unattach_tag_btn.clicked.connect(unattach_tag)
+search_by_tag_btn.clicked.connect(search_by_tag)
 notes_list.addItems(notes)
 win.show()
 app.exec_()
