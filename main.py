@@ -67,9 +67,16 @@ def add_note():
         notes[note_name] = {'text': '', 'tags': []}
         with open('notes.json', 'w') as file:
             json.dump(notes, file)
+            notes_list.clear()
+            notes_list.addItems(notes)
 
+def delete_note():
+    note = notes_list.selectedItems()[0].text()
+    del (notes[note])
+    notes_list.clear()
+    notes_list.addItems(notes)
 notes_list.itemClicked.connect(show_note)
-
+delete_note_btn.clicked.connect(delete_note)
 with open('notes.json', 'r', encoding='utf-8') as file:
     notes = json.load(file)
 

@@ -1,10 +1,1 @@
-{
-    "Notes name": {
-        "text": "notes text",
-        "tags": ["tag1", "tag2"]
-    },
-    "Second notes": {
-        "text": "Second notes text",
-        "tags": ["tag1", "tag2", "tag3"]
-    }
-}
+{"Notes name": {"text": "notes text", "tags": ["tag1", "tag2"]}, "Second notes": {"text": "Second notes text", "tags": ["tag1", "tag2", "tag3"]}, "test": {"text": "", "tags": []}}
